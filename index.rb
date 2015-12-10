@@ -2,9 +2,6 @@ require 'sinatra'
 require 'rotp'
 require 'base32'
 require 'rqrcode_png'
-require 'active_support/core_ext/time'
-require 'haml'
-require 'kramdown'
 
 helpers do
   def generate_secret
@@ -74,9 +71,4 @@ get '/current-otp-code/:secret' do |secret|
 
   totp = ROTP::TOTP.new(secret)
   totp.now
-end
-
-get '/service-status' do
-  content_type 'text/plain'
-  "Up and running: #{Time.now.to_formatted_s :db}" 
 end
