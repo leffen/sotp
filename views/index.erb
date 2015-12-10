@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+  <meta content="width=device-width, initial-scale=1" name="viewport">
+  <title>TOTP test</title>
+  <link href="/css/bootstrap.min.css" media="screen" rel="stylesheet">
+  <link href="/css/style.css" media="screen" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+  <div class="row outer-row">
+    <div class="col-md-4">
+      <h2 id="the-sinatra-one-time-password-service">One Time Password</h2>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">1. Set identifiers</div>
+            <div class="panel-body">
+              <form>
+                <div class="form-group">
+                  <label>Username</label>
+                  <input autocomplete="off" class="form-control user-editable" id="username" value="<%= @default_user %>">
+                </div>
+                <div class="form-group">
+                  <label>Issuer</label>
+                  <input autocomplete="off" class="form-control user-editable" id="issuer" value="<%= @default_system %>">
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">2. Generate secret</div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="well well-sm well-mono" id="secret"><%= @default_secret %></div>
+                  <a class="refresh-link">Generate new secret</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">3. Scan QR Code</div>
+            <div class="panel-body">
+              <img class="thumbnail" height="200" id="qr-code" src="/get-otp-qr-code/<%= @default_user %>/<%= @default_secret %>/<%= @default_system %>" width="200">
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="row">
+        <div class="col-md-12">
+          <div class="panel panel-default">
+            <div class="panel-heading">4. Time-based password</div>
+            <div class="panel-body">
+              <div class="row">
+                <div class="col-md-6">
+                  <p>
+                    TOTP Code
+                  </p>
+                  <div class="well well-sm well-mono" id="otpcode">815069</div>
+                </div>
+                <div class="col-md-6">
+                  <p>
+                    New Code Timer
+                  </p>
+                  <div class="well well-sm well-mono" id="countdown">
+                    00:00
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="/js/jquery-2.0.3.min.js"></script>
+<script src="/js/jquery.countdown.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/sinatra-rotp.js"></script>
+</body>
+</html>
